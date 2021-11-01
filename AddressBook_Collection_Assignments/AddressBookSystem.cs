@@ -443,8 +443,29 @@ namespace AddressBook2
                     Console.WriteLine("Press any key to Continue ..");
                     Console.ReadKey();
                     break;
-                    
             }
+        }
+
+
+        /// <summary>
+        /// UC11 ==> Sort Contacts in alphabetically by Person’s name
+        /// </summary>
+        public void Sort_Contact_by_PersonName()
+        {
+            foreach (var names in People.OrderBy(e => e.firstname).ToList())
+            {
+                if (People.Contains(names))
+                {
+                    PrintDetails(names);
+                }
+                else
+                {
+                    Console.WriteLine("Contact does not Exist..");
+                }
+            }
+            Console.WriteLine("Press any key to Continue ..");
+            Console.ReadKey();
+            Console.Clear();
         }
 
 
@@ -458,7 +479,7 @@ namespace AddressBook2
             bool exit = false;
             while (exit != true)
             {
-                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Adding Multiple Unique Contact\n" + "7 :Display Unique Contacts Address Book\n" + "8 :Search Multiple Person Names in City or State\n" + "9 :Display Contacts By City or State\n"+ "10 :Count Contacts By City or State\n" + "11 :Exit From the Address Book\n");
+                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Adding Multiple Unique Contact\n" + "7 :Display Unique Contacts Address Book\n" + "8 :Search Multiple Person Names in City or State\n" + "9 :Display Contacts By City or State\n"+ "10 :Count Contacts By City or State\n" + "11 :Sort Contacts By Person Name\n"+ "12 :Exit From the Address Book\n");
                 int options = Convert.ToInt32(Console.ReadLine());
                 switch (options)
                 {
@@ -495,6 +516,9 @@ namespace AddressBook2
                         Count_Contacts_By_CitiesOrStates();
                         break;
                     case 11:
+                        Sort_Contact_by_PersonName();
+                        break;
+                    case 12:
                         exit = true;
                         break;
                     default:
