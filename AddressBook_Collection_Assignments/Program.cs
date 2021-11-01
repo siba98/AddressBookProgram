@@ -6,7 +6,7 @@ namespace AddressBook2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("\n***********************************\nWELCOME TO ADDRESS BOOK PROGRAM\n***********************************\n\n");
+            Console.WriteLine("\n************************************\nWELCOME TO ADDRESS BOOK PROGRAM\n************************************\n\n");
         }
     }
 }
