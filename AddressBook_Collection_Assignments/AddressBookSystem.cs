@@ -224,11 +224,11 @@ namespace AddressBook2
         {
             Console.Write("How many contacts want to add :");
             int num = Convert.ToInt32(Console.ReadLine());
-            for (int i = 1; i <= num; i++)
+            while (num>0)
             {
                 ContactDetails();
                 ListAllContacts();
-                i--;
+                num--;
             }
         }
 
@@ -320,17 +320,50 @@ namespace AddressBook2
             }
         }
 
+
+        /// <summary>
+        /// UC8 ==> search Person in a City or State across the multiple AddressBook
+        /// </summary>
+        public void Search_Person_By_CityOrState()
+        {
+            Console.Write("Please enter 1  for City 2 for State : ");
+            int options = Convert.ToInt32(Console.ReadLine());
+            switch (options)
+            {
+                case 1:
+                    Console.Write("Enter City Name : ");
+                    string city = Console.ReadLine();
+                    foreach (Contacts person in People.FindAll(e => e.city.ToLower() == city.ToLower()))
+                    {
+                        PrintDetails(person);
+                    }
+                    break;
+
+                case 2:
+                    Console.Write("Enter State Name :");
+                    string state = Console.ReadLine();
+                    foreach (Contacts person in People.FindAll(e => e.state.ToLower() == state.ToLower()))
+                    {
+                        PrintDetails(person);
+                    }
+                    break;
+            }
+            Console.WriteLine("Press any key to continue..");
+            Console.ReadKey();
+        }
+
+
         /// <summary>
         /// Choose options for adding the details in a address book
         /// </summary>
         public void ChooseOption()
         {
             Console.WriteLine("\n*****************************\nWELCOME TO YOUR ADDRESS BOOK\n*****************************\n");
-            Console.WriteLine("\n****************\nPlease Choose Any Option And Add The Details\n****************\n");
+            Console.WriteLine("\n***********************************************\nPlease Choose Any Option And Add The Details\n***********************************************\n");
             bool exit = false;
             while (exit != true)
             {
-                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Adding Multiple Unique Contact\n" + "7 :Display Unique Contacts Address Book\n" + "8 :Exit From the Address Book\n");
+                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Adding Multiple Unique Contact\n" + "7 :Display Unique Contacts Address Book\n" + "8 :Search Multiple Person Names in City or State\n" + "9 :Exit From the Address Book\n");
                 int options = Convert.ToInt32(Console.ReadLine());
                 switch (options)
                 {
@@ -358,6 +391,9 @@ namespace AddressBook2
                         DisplayAddressBookNames();
                         break;
                     case 8:
+                        Search_Person_By_CityOrState();
+                        break;
+                    case 9:
                         exit = true;
                         break;
                     default:

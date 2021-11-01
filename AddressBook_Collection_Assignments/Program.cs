@@ -8,7 +8,7 @@ namespace AddressBook2
         {
             AddressBookSystem addressBook = new AddressBookSystem();
 
-            Console.WriteLine("\n************************************\nWELCOME TO ADDRESS BOOK PROGRAM\n***********************************\n\n");
+            Console.WriteLine("\n***********************************\nWELCOME TO ADDRESS BOOK PROGRAM\n***********************************\n\n");
 
             bool isexit = false;
             while (isexit != true)
