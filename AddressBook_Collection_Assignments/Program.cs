@@ -6,7 +6,11 @@ namespace AddressBook2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("\n***********************************\nWELCOME TO ADDRESS BOOK PROGRAM\n************************************\n\n");
+            //creating object
+            AddressBookSystem addressBook = new AddressBookSystem();
+
+            Console.WriteLine("\n************\nWELCOME TO ADDRESS BOOK PROGRAM\n************\n\n");
+            addressBook.ChooseOption();
         }
     }
 }
