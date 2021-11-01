@@ -315,9 +315,9 @@ namespace AddressBook2
             foreach (var dictNames in dictionary)
             {
                 Console.WriteLine(dictNames.Key);
-                Console.WriteLine("Press any key to comtinue..");
-                Console.ReadKey();
             }
+            Console.WriteLine("Press any key to comtinue..");
+            Console.ReadKey();
         }
 
 
@@ -396,6 +396,58 @@ namespace AddressBook2
             Console.ReadKey();
         }
 
+
+        /// <summary>
+        /// UC10 ==> Ability to get number of contact persons i.e. count by City or State
+        /// </summary>
+        public void Count_Contacts_By_CitiesOrStates()
+        {
+            Console.Write("Please enter 1  for City 2 for State :");
+            int options = Convert.ToInt32(Console.ReadLine());
+            switch (options)
+            {
+                case 1:
+                    Console.Write("Please enter city Name :");
+                    string city = Console.ReadLine();
+                    List<Contacts> cityList = new List<Contacts>();
+                    foreach (Contacts person in People.FindAll(e => e.city.ToLower() == city.ToLower()))
+                    {
+                        cityList.Add(person);
+                    }
+                    dictionary.Add(city, cityList);
+                    foreach (var element in dictionary[city])
+                    {
+                        PrintDetails(element);
+                    }
+                    int cityCount = dictionary[city].Count();
+                    Console.WriteLine("Total :{0}", cityCount);
+                    Console.WriteLine("Press any key to Continue ..");
+                    Console.ReadKey();
+                    break;
+
+                case 2:
+                    Console.Write("Please Enter the State Name :");
+                    string state = Console.ReadLine();
+                    List<Contacts> stateList = new List<Contacts>();
+                    foreach (Contacts person in People.FindAll(e => e.city.ToLower() == state.ToLower()))
+                    {
+                        stateList.Add(person);
+                    }
+                    dictionary.Add(state, stateList);
+                    foreach (var element in dictionary[state])
+                    {
+                        PrintDetails(element);
+                    }
+                    int stateCount = dictionary[state].Count();
+                    Console.WriteLine("Total :{0}", stateCount);
+                    Console.WriteLine("Press any key to Continue ..");
+                    Console.ReadKey();
+                    break;
+                    
+            }
+        }
+
+
         /// <summary>
         /// Choose options for adding the details in a address book
         /// </summary>
@@ -406,7 +458,7 @@ namespace AddressBook2
             bool exit = false;
             while (exit != true)
             {
-                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Adding Multiple Unique Contact\n" + "7 :Display Unique Contacts Address Book\n" + "8 :Search Multiple Person Names in City or State\n" + "9 :Display Contacts By City or State\n"+ "10 :Exit From the Address Book\n");
+                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Adding Multiple Unique Contact\n" + "7 :Display Unique Contacts Address Book\n" + "8 :Search Multiple Person Names in City or State\n" + "9 :Display Contacts By City or State\n"+ "10 :Count Contacts By City or State\n" + "11 :Exit From the Address Book\n");
                 int options = Convert.ToInt32(Console.ReadLine());
                 switch (options)
                 {
@@ -440,6 +492,9 @@ namespace AddressBook2
                         View_Person_By_CityorState();
                         break;
                     case 10:
+                        Count_Contacts_By_CitiesOrStates();
+                        break;
+                    case 11:
                         exit = true;
                         break;
                     default:
