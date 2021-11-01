@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace AddressBook2
 {
@@ -8,6 +9,9 @@ namespace AddressBook2
     {
         //declaring a List
         public List<Contacts> People = new List<Contacts>();
+
+        //declaring a dictionary for storing unique contacts
+        public Dictionary<string, List<Contacts>> dictionary = new Dictionary<string, List<Contacts>>();
 
         /// <summary>
         /// UC1 ==> added contact details
@@ -228,16 +232,105 @@ namespace AddressBook2
             }
         }
 
+
+        /// <summary>
+        /// UC6 ==> adding multiple unique contacts and maintaining dictionary
+        /// </summary>
+        public void AddMultiplePerson_With_UniqueAddress()
+        {
+            Console.Write("How many contacts u want to add :");
+            int num = Convert.ToInt32(Console.ReadLine());
+            for (int i = 1; i <= num; i++)
+            {
+                while (i <= num)
+                {
+                    for (int j = 0; j < num; j++)
+                    {
+                        Console.Write("Enter the First Name: ");
+                        string fname = Console.ReadLine();
+                        if (People[j].firstname.Equals(fname))
+                        {
+                            Console.WriteLine("Name already exists\n");
+                            Console.ReadKey();
+                            Console.WriteLine("\nEnter a New name and Add the details");
+                            ContactDetails();
+                            ListAllContacts();
+                        }
+                        else
+                        {
+                            ContactDetails();
+                            ListAllContacts();
+                        }
+                    }
+                    i++;
+                    break;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// UC7 ==> ensure there is no duplicate Entry of the same person in a particular Address Book
+        /// </summary>
+        //AddressBook with Unique Names
+        public void AddUniqueAddressBook()
+        {
+            bool exit = false;
+            while (exit != true)
+            {
+                Console.Write("----------------------------------------------\nEnter the Name of Address Book :");
+                string uniqueName = Console.ReadLine();
+
+                if (dictionary.ContainsKey(uniqueName))
+                {
+                    Console.WriteLine("{0} Address Book Already Exists. Try Different one..", uniqueName);
+                    Console.WriteLine("Press any key to Continue ..");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    dictionary.Add(uniqueName, People);
+                    Console.WriteLine("Address Book Saved.");
+                    Console.WriteLine("Please Wait..........\nYou Will be Redirected to Your Address Book to Enter Your Details.....");
+                    Thread.Sleep(5000);
+                    exit = true;
+                    Console.Clear();
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Check any address book present in the dictionary or not
+        /// </summary>
+        public void DisplayAddressBookNames()
+        {
+            if (dictionary.Count == 0)
+            {
+                Console.WriteLine("Sorry!! Address Book is Empty. Press any key to continue.");
+                Console.ReadKey();
+                return;
+            }
+            Console.WriteLine("Here are the Existing Address Book in Your System: ");
+            foreach (var dictNames in dictionary)
+            {
+                Console.WriteLine(dictNames.Key);
+                Console.WriteLine("Press any key to comtinue..");
+                Console.ReadKey();
+            }
+        }
+
         /// <summary>
         /// Choose options for adding the details in a address book
         /// </summary>
         public void ChooseOption()
         {
+            Console.WriteLine("\n*****************************\nWELCOME TO YOUR ADDRESS BOOK\n*****************************\n");
             Console.WriteLine("\n****************\nPlease Choose Any Option And Add The Details\n****************\n");
             bool exit = false;
             while (exit != true)
             {
-                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Exit From the Address Book\n");
+                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Adding Multiple Unique Contact\n" + "7 :Exit From the Address Book\n");
                 int options = Convert.ToInt32(Console.ReadLine());
                 switch (options)
                 {
@@ -258,6 +351,10 @@ namespace AddressBook2
                         AddMultipleContact();
                         break;
                     case 6:
+                        ContactDetails();
+                        AddMultiplePerson_With_UniqueAddress();
+                        break;
+                    case 7:
                         exit = true;
                         break;
                     default:
