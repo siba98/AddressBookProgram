@@ -470,6 +470,60 @@ namespace AddressBook2
 
 
         /// <summary>
+        /// UC12 ==> Sort Contacts by City, State or Zip
+        /// </summary>
+        public void Sort_Contacts_By_City_State_Or_Zip()
+        {
+            Console.Write("Please enter 1  for City, 2 for State, 3 for Zip: ");
+            int options = Convert.ToInt32(Console.ReadLine());
+            switch (options)
+            {
+                case 1:
+                    foreach (var data in People.OrderBy(x => x.city).ToList())
+                    {
+                        if (People.Contains(data))
+                        {
+                            PrintDetails(data);
+                        }
+                        else
+                        {
+                            Console.WriteLine("contact does not exists");
+                        }
+                    }
+                    break;
+                case 2:
+                    foreach (var data in People.OrderBy(x => x.state).ToList())
+                    {
+                        if (People.Contains(data))
+                        {
+                            PrintDetails(data);
+                        }
+                        else
+                        {
+                            Console.WriteLine("contact does not exists");
+                        }
+                    }
+                    break;
+                case 3:
+                    foreach (var data in People.OrderBy(x => x.zipcode).ToList())
+                    {
+                        if (People.Contains(data))
+                        {
+                            PrintDetails(data);
+                        }
+                        else
+                        {
+                            Console.WriteLine("contact does not exists");
+                        }
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Choose Valid Option!!");
+                    break;
+            }
+        }
+
+        /// <summary>
         /// Choose options for adding the details in a address book
         /// </summary>
         public void ChooseOption()
@@ -479,7 +533,7 @@ namespace AddressBook2
             bool exit = false;
             while (exit != true)
             {
-                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Adding Multiple Unique Contact\n" + "7 :Display Unique Contacts Address Book\n" + "8 :Search Multiple Person Names in City or State\n" + "9 :Display Contacts By City or State\n"+ "10 :Count Contacts By City or State\n" + "11 :Sort Contacts By Person Name\n"+ "12 :Exit From the Address Book\n");
+                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Adding Multiple Unique Contact\n" + "7 :Display Unique Contacts Address Book\n" + "8 :Search Multiple Person Names in City or State\n" + "9 :Display Contacts By City or State\n"+ "10 :Count Contacts By City or State\n" + "11 :Sort Contacts By Person Name\n"+ "12 :Sort Contacts by City, State or Zip\n" + "13 :Exit From the Address Book\n");
                 int options = Convert.ToInt32(Console.ReadLine());
                 switch (options)
                 {
@@ -519,6 +573,9 @@ namespace AddressBook2
                         Sort_Contact_by_PersonName();
                         break;
                     case 12:
+                        Sort_Contacts_By_City_State_Or_Zip();
+                        break;
+                    case 13:
                         exit = true;
                         break;
                     default:
