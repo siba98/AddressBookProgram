@@ -1,10 +1,13 @@
 ﻿using CsvHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace AddressBook2
 {
@@ -16,11 +19,6 @@ namespace AddressBook2
         //declaring a dictionary for storing unique contacts
         public Dictionary<string, List<Contacts>> dictionary = new Dictionary<string, List<Contacts>>();
 
-        //path for the text file to read or write the contacts
-        static string Path = @"C:\Users\gyans\source\repos\AddressBook_Collection_Assignments\AddressBook_Collection_Assignments\PersonContacts.txt";
-
-        //path for the csv file to read or write the contacts
-        static string CsvFilePath = @"C:\Users\gyans\source\repos\AddressBook_Collection_Assignments\AddressBook_Collection_Assignments\PersonContacts.csv";
 
         /// <summary>
         /// UC1 ==> added contact details
@@ -58,7 +56,9 @@ namespace AddressBook2
 
             //added the details of the person to the list
             People.Add(person);
-            Console.WriteLine("Successfully Added the Person Details");
+
+            Console.WriteLine("\nSuccessfully Added the Person Details\n");
+            Console.WriteLine("*******************************************");
         }
 
 
@@ -532,11 +532,15 @@ namespace AddressBook2
             }
         }
 
+
         /// <summary>
         /// UC13 ==> Read or Write the Address Book with Persons Contact into a File using File IO
         /// </summary>
         public void Save_Contacts_To_TextFile()
         {
+            //path for the text file to read or write the contacts
+            string Path = @"C:\Users\gyans\source\repos\AddressBook_Collection_Assignments\AddressBook_Collection_Assignments\PersonContacts.txt";
+
             using TextWriter tw = new StreamWriter(Path);
             foreach (var contacts in People)
             {
@@ -551,11 +555,33 @@ namespace AddressBook2
         /// </summary>
         public void Save_Contacts_To_CSVFile()
         {
+            
+            //path for the csv file to read or write the contacts
+            string CsvFilePath = @"C:\Users\gyans\source\repos\AddressBook_Collection_Assignments\AddressBook_Collection_Assignments\PersonContacts.csv";
+
             using TextWriter textwriter = new StreamWriter(CsvFilePath);
             using (var csvExport = new CsvWriter(textwriter, CultureInfo.InvariantCulture))
             {
                 csvExport.WriteRecords(People);
             }
+            Console.WriteLine("\nDetails Added Successfully to the CSV File\n");
+        }
+
+
+        /// <summary>
+        /// UC15 ==> Read or Write the Address Book with Person's Contact as JSON File
+        /// </summary>
+        public void Save_Contacts_To_JsonFile()
+        {
+            string jsonFilePath = @"C:\Users\gyans\source\repos\AddressBook_Collection_Assignments\AddressBook_Collection_Assignments\PersonContacts.json";
+
+            JsonSerializer jsonSerializer = new JsonSerializer();
+            StreamWriter sw = new StreamWriter(jsonFilePath);
+            using (JsonWriter jsonWriter = new JsonTextWriter(sw))
+            {
+                jsonSerializer.Serialize(jsonWriter, People);
+            }
+            Console.WriteLine("\nDetails Added Successfully to the Json File\n");
         }
 
 
@@ -569,7 +595,7 @@ namespace AddressBook2
             bool exit = false;
             while (exit != true)
             {
-                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n" + "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Adding Multiple Unique Contact\n" + "7 :Display Unique Contacts Address Book\n" + "8 :Search Multiple Person Names in City or State\n" + "9 :Display Contacts By City or State\n" + "10 :Count Contacts By City or State\n" + "11 :Sort Contacts By Person Name\n" + "12 :Sort Contacts by City, State or Zip\n" + "13 :Save Contacts To TextFile\n" + "14 :Save Contacts To CSVFile\n" + "15 :Exit From the Address Book\n");
+                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n" + "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Adding Multiple Unique Contact\n" + "7 :Display Unique Contacts Address Book\n" + "8 :Search Multiple Person Names in City or State\n" + "9 :Display Contacts By City or State\n" + "10 :Count Contacts By City or State\n" + "11 :Sort Contacts By Person Name\n" + "12 :Sort Contacts by City, State or Zip\n" + "13 :Save Contacts To TextFile\n" + "14 :Save Contacts To CSVFile\n" + "15 :Save Contacts To JsonFile\n" + "16 :Exit From the Address Book\n");
                 int options = Convert.ToInt32(Console.ReadLine());
                 switch (options)
                 {
@@ -580,7 +606,6 @@ namespace AddressBook2
                         ListAllContacts();
                         break;
                     case 3:
-                        ListAllContacts();
                         UpdateExistingContact();
                         break;
                     case 4:
@@ -618,12 +643,16 @@ namespace AddressBook2
                         Save_Contacts_To_CSVFile();
                         break;
                     case 15:
+                        Save_Contacts_To_JsonFile();
+                        break;
+                    case 16:
                         exit = true;
                         break;
                     default:
                         Console.WriteLine("Choose Valid Option!!");
                         break;
                 }
+                Console.Clear();
             }
         }
     }
