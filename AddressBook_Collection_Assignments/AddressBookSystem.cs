@@ -214,6 +214,21 @@ namespace AddressBook2
         }
 
         /// <summary>
+        /// UC5 ==> adding multiple contacts to the list
+        /// </summary>
+        public void AddMultipleContact()
+        {
+            Console.Write("How many contacts want to add :");
+            int num = Convert.ToInt32(Console.ReadLine());
+            for (int i = 1; i <= num; i++)
+            {
+                ContactDetails();
+                ListAllContacts();
+                i--;
+            }
+        }
+
+        /// <summary>
         /// Choose options for adding the details in a address book
         /// </summary>
         public void ChooseOption()
@@ -222,7 +237,7 @@ namespace AddressBook2
             bool exit = false;
             while (exit != true)
             {
-                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Exit From the Address Book\n");
+                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Exit From the Address Book\n");
                 int options = Convert.ToInt32(Console.ReadLine());
                 switch (options)
                 {
@@ -240,6 +255,9 @@ namespace AddressBook2
                         RemovePerson();
                         break;
                     case 5:
+                        AddMultipleContact();
+                        break;
+                    case 6:
                         exit = true;
                         break;
                     default:
