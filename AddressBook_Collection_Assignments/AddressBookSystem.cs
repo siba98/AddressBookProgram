@@ -330,7 +330,7 @@ namespace AddressBook2
             bool exit = false;
             while (exit != true)
             {
-                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Adding Multiple Unique Contact\n" + "7 :Exit From the Address Book\n");
+                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Adding Multiple Unique Contact\n" + "7 :Display Unique Contacts Address Book\n" + "8 :Exit From the Address Book\n");
                 int options = Convert.ToInt32(Console.ReadLine());
                 switch (options)
                 {
@@ -355,6 +355,9 @@ namespace AddressBook2
                         AddMultiplePerson_With_UniqueAddress();
                         break;
                     case 7:
+                        DisplayAddressBookNames();
+                        break;
+                    case 8:
                         exit = true;
                         break;
                     default:
