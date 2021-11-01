@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AddressBook2
 {
@@ -179,6 +180,40 @@ namespace AddressBook2
         }
 
         /// <summary>
+        /// UC4 ==> remove a person by searching his name
+        /// </summary>
+        public void RemovePerson()
+        {
+            Console.WriteLine("Enter the first name of the person you would like to remove:");
+            string firstname = Console.ReadLine();
+            //Contacts findperson = people.Find(x => x.firstname.ToLower() == firstname.ToLower());
+            Contacts findperson = People.FirstOrDefault(x => x.firstname.ToLower() == firstname.ToLower());
+            if (findperson == null)
+            {
+                Console.WriteLine("That person could not be found");
+            }
+            else
+            {
+                Console.WriteLine("Person with the Given name exists");
+                Console.WriteLine("Are you sure you want to remove this person from your address book? (Y/N)");
+                PrintDetails(findperson);
+                if (Console.ReadKey().Key == ConsoleKey.Y)
+                {
+
+                    People.Remove(findperson);
+                    Console.WriteLine("Person removed. Press any key to continue.");
+                    Console.ReadKey();
+                    return;
+                }
+                ListAllContacts();
+                if (Console.ReadKey().Key == ConsoleKey.N)
+                {
+                    Console.WriteLine("OKK. Press any key to continue.");
+                }
+            }
+        }
+
+        /// <summary>
         /// Choose options for adding the details in a address book
         /// </summary>
         public void ChooseOption()
@@ -187,7 +222,7 @@ namespace AddressBook2
             bool exit = false;
             while (exit != true)
             {
-                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Exit From the Address Book\n");
+                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Exit From the Address Book\n");
                 int options = Convert.ToInt32(Console.ReadLine());
                 switch (options)
                 {
@@ -202,6 +237,9 @@ namespace AddressBook2
                         UpdateExistingContact();
                         break;
                     case 4:
+                        RemovePerson();
+                        break;
+                    case 5:
                         exit = true;
                         break;
                     default:
