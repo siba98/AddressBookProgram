@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "dsrHz4L8eTDfwOATPdH9HG3t+oNXjwjwEJbz44qOkHaSr6oni7dg4BG/Cf5038KxtrIz22uk18ggVxVAEvH7wQ==",
+  "dgSpecHash": "jrsbYv9M5BhzeqYqRCx1dAevrUo31lSJSI3v5GRKi1Ydb8Uh1+cOghPq7nbL4IyiG7gxtwP7PUrqRy3QkmO9EQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\gyans\\source\\repos\\AddressBook_Collection_Assignments\\AddressBook_Collection_Assignments\\AddressBook_Collection_Assignments.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\gyans\\.nuget\\packages\\csvhelper\\27.1.1\\csvhelper.27.1.1.nupkg.sha512",
+    "C:\\Users\\gyans\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }

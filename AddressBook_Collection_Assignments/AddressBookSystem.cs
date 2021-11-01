@@ -1,5 +1,7 @@
-﻿using System;
+﻿using CsvHelper;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -14,7 +16,11 @@ namespace AddressBook2
         //declaring a dictionary for storing unique contacts
         public Dictionary<string, List<Contacts>> dictionary = new Dictionary<string, List<Contacts>>();
 
+        //path for the text file to read or write the contacts
         static string Path = @"C:\Users\gyans\source\repos\AddressBook_Collection_Assignments\AddressBook_Collection_Assignments\PersonContacts.txt";
+
+        //path for the csv file to read or write the contacts
+        static string CsvFilePath = @"C:\Users\gyans\source\repos\AddressBook_Collection_Assignments\AddressBook_Collection_Assignments\PersonContacts.csv";
 
         /// <summary>
         /// UC1 ==> added contact details
@@ -24,7 +30,7 @@ namespace AddressBook2
             //Created object of Contacts class
             Contacts person = new Contacts();
 
-            Console.WriteLine("******Enter the Person Details******");
+            Console.WriteLine(" * *****Enter the Person Details******");
 
             Console.Write("Enter First Name: ");
             person.firstname = Console.ReadLine();
@@ -539,6 +545,20 @@ namespace AddressBook2
             Console.WriteLine("\nDetails Added Successfully to the TextFile\n");
         }
 
+
+        /// <summary>
+        /// UC14 ==> Read or Write the Address Book with Persons Contact into a CSV File
+        /// </summary>
+        public void Save_Contacts_To_CSVFile()
+        {
+            using TextWriter textwriter = new StreamWriter(CsvFilePath);
+            using (var csvExport = new CsvWriter(textwriter, CultureInfo.InvariantCulture))
+            {
+                csvExport.WriteRecords(People);
+            }
+        }
+
+
         /// <summary>
         /// Choose options for adding the details in a address book
         /// </summary>
@@ -549,7 +569,7 @@ namespace AddressBook2
             bool exit = false;
             while (exit != true)
             {
-                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n"+ "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Adding Multiple Unique Contact\n" + "7 :Display Unique Contacts Address Book\n" + "8 :Search Multiple Person Names in City or State\n" + "9 :Display Contacts By City or State\n"+ "10 :Count Contacts By City or State\n" + "11 :Sort Contacts By Person Name\n"+ "12 :Sort Contacts by City, State or Zip\n" + "13 :Save Contacts To TextFile\n" + "14 :Exit From the Address Book\n");
+                Console.WriteLine("Choose a number: " + "\n1 :Create Contact\n" + "2 :List All People Present in the List\n" + "3 :Edit Existing Contact\n" + "4 :Removing Contact\n" + "5 :Adding Multiple Contact\n" + "6 :Adding Multiple Unique Contact\n" + "7 :Display Unique Contacts Address Book\n" + "8 :Search Multiple Person Names in City or State\n" + "9 :Display Contacts By City or State\n" + "10 :Count Contacts By City or State\n" + "11 :Sort Contacts By Person Name\n" + "12 :Sort Contacts by City, State or Zip\n" + "13 :Save Contacts To TextFile\n" + "14 :Save Contacts To CSVFile\n" + "15 :Exit From the Address Book\n");
                 int options = Convert.ToInt32(Console.ReadLine());
                 switch (options)
                 {
@@ -595,6 +615,9 @@ namespace AddressBook2
                         Save_Contacts_To_TextFile();
                         break;
                     case 14:
+                        Save_Contacts_To_CSVFile();
+                        break;
+                    case 15:
                         exit = true;
                         break;
                     default:
